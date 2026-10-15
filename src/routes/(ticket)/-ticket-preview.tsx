@@ -1,3 +1,4 @@
+import { formatMoney as money } from '~/lib/utils';
 export default function TicketPreview() {
   return (
     // w-[72mm]
@@ -25,7 +26,7 @@ export default function TicketPreview() {
         <li className="grid grid-cols-6 py-2">
           <div className="col-span-1">10x</div>
           <div className="col-span-3">Shawarma Pollo Deluxe</div>
-          <div className="col-span-2 text-right">$ 152,000</div>
+          <div className="col-span-2 text-right">{money(152000)}</div>
         </li>
 
         <li className="grid grid-cols-6 py-2">
