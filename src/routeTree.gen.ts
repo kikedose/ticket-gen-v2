@@ -10,43 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as orderOrderIndexRouteImport } from './routes/(order)/order.index'
+import { Route as ticketTicketIndexRouteImport } from './routes/(ticket)/ticket.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const orderOrderIndexRoute = orderOrderIndexRouteImport.update({
-  id: '/(order)/order/',
-  path: '/order/',
+const ticketTicketIndexRoute = ticketTicketIndexRouteImport.update({
+  id: '/(ticket)/ticket/',
+  path: '/ticket/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/order/': typeof orderOrderIndexRoute
+  '/ticket/': typeof ticketTicketIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/order': typeof orderOrderIndexRoute
+  '/ticket': typeof ticketTicketIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(order)/order/': typeof orderOrderIndexRoute
+  '/(ticket)/ticket/': typeof ticketTicketIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/order/'
+  fullPaths: '/' | '/ticket/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/order'
-  id: '__root__' | '/' | '/(order)/order/'
+  to: '/' | '/ticket'
+  id: '__root__' | '/' | '/(ticket)/ticket/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  orderOrderIndexRoute: typeof orderOrderIndexRoute
+  ticketTicketIndexRoute: typeof ticketTicketIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +58,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(order)/order/': {
-      id: '/(order)/order/'
-      path: '/order'
-      fullPath: '/order/'
-      preLoaderRoute: typeof orderOrderIndexRouteImport
+    '/(ticket)/ticket/': {
+      id: '/(ticket)/ticket/'
+      path: '/ticket'
+      fullPath: '/ticket/'
+      preLoaderRoute: typeof ticketTicketIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  orderOrderIndexRoute: orderOrderIndexRoute,
+  ticketTicketIndexRoute: ticketTicketIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
