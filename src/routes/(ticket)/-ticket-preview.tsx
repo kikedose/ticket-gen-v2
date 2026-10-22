@@ -1,8 +1,22 @@
+import { useShallow } from 'zustand/react/shallow';
+import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
+
 export default function TicketPreview() {
+  const { handout, isDelayed, name, phone, address, dispatchTime } =
+    useTicketStore(
+      useShallow((s) => ({
+        handout: s.handout,
+        isDelayed: s.isDelayed,
+        name: s.name,
+        phone: s.phone,
+        address: s.address,
+        dispatchTime: s.dispatchTime,
+      })),
+    );
+
   return (
-    // w-[72mm]
-    <div className="flex max-w-120 flex-col gap-4 border border-solid border-red-500 font-mono">
+    <div className="flex w-[72mm] flex-col gap-4 font-mono">
       {/* Ticket No */}
       <div className="text-right">#T-4567</div>
 
@@ -16,7 +30,7 @@ export default function TicketPreview() {
 
       {/* Customer details */}
       <ul>
-        <li>Juan Román Riquelme</li>
+        <li>{name}</li>
         <li className="font-bold">General Bustos 742, 5B</li>
         <li>351 202-3227</li>
       </ul>
