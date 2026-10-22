@@ -88,7 +88,7 @@ export default function CustomerData() {
           </Field>
 
           <Field className="col-span-1" data-disabled={!isDelayed}>
-            <FieldLabel htmlFor="address">Time</FieldLabel>
+            <FieldLabel htmlFor="address">Dispatch Time</FieldLabel>
             <Input
               disabled={!isDelayed}
               type="time"
