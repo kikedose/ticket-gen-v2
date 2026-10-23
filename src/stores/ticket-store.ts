@@ -8,6 +8,7 @@ const initialState: TicketState = {
   phone: '',
   address: '',
   dispatchTime: '',
+  paymentMethod: '',
 };
 
 export const useTicketStore = create<TicketStore>((set) => ({

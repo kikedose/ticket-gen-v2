@@ -7,6 +7,7 @@ export type TicketState = {
   phone: string;
   address: string;
   dispatchTime: string;
+  paymentMethod: string;
 };
 
 export type TicketActions = {

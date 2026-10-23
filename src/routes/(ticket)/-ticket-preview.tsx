@@ -3,17 +3,25 @@ import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
 
 export default function TicketPreview() {
-  const { handout, isDelayed, name, phone, address, dispatchTime } =
-    useTicketStore(
-      useShallow((s) => ({
-        handout: s.handout,
-        isDelayed: s.isDelayed,
-        name: s.name,
-        phone: s.phone,
-        address: s.address,
-        dispatchTime: s.dispatchTime,
-      })),
-    );
+  const {
+    handout,
+    isDelayed,
+    name,
+    phone,
+    address,
+    dispatchTime,
+    paymentMethod,
+  } = useTicketStore(
+    useShallow((s) => ({
+      handout: s.handout,
+      isDelayed: s.isDelayed,
+      name: s.name,
+      phone: s.phone,
+      address: s.address,
+      dispatchTime: s.dispatchTime,
+      paymentMethod: s.paymentMethod,
+    })),
+  );
 
   return (
     <div className="flex w-[72mm] flex-col gap-4 font-mono">
@@ -68,7 +76,7 @@ export default function TicketPreview() {
           Total: <span className="font-bold">$ 219,500</span>
         </li>
         <br />
-        <li>Efectivo</li>
+        <li className="capitalize">{paymentMethod}</li>
       </ul>
 
       <div>05/04/2022 19:30</div>
