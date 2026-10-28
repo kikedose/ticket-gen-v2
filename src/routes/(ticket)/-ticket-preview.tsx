@@ -81,7 +81,7 @@ export default function TicketPreview() {
         <li className="capitalize">{paymentMethod}</li>
       </ul>
 
-      <div>05/04/2022 19:30</div>
+      <div>05/ABR/2022 19:30</div>
     </div>
   );
 }
