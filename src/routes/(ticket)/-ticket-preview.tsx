@@ -30,17 +30,19 @@ export default function TicketPreview() {
 
       {/* Handover details */}
       <ul>
-        <li className="uppercase">Delivery</li>
-        <li>
-          Entrega <span className="font-bold">22:30</span>
-        </li>
+        <li className="uppercase">{handout}</li>
+        {isDelayed && (
+          <li>
+            Entrega <span className="font-bold">{dispatchTime}</span>
+          </li>
+        )}
       </ul>
 
       {/* Customer details */}
       <ul>
         <li>{name}</li>
-        <li className="font-bold">General Bustos 742, 5B</li>
-        <li>351 202-3227</li>
+        <li className="font-bold">{address}</li>
+        <li>{phone}</li>
       </ul>
 
       {/* Order details */}

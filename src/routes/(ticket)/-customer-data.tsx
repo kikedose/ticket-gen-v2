@@ -53,6 +53,7 @@ export default function CustomerData() {
               onValueChange={(value) =>
                 setField({ handout: value as TicketState['handout'] })
               }
+              defaultValue="take-away"
             >
               <div className="flex items-center gap-3">
                 <RadioGroupItem value="take-away" id="take-away" />
@@ -70,7 +71,12 @@ export default function CustomerData() {
               id="delayed"
               name="delayed"
               checked={isDelayed}
-              onCheckedChange={(checked) => setField({ isDelayed: !!checked })}
+              onCheckedChange={(checked) =>
+                setField({
+                  isDelayed: !!checked,
+                  dispatchTime: '',
+                })
+              }
             />
             <FieldLabel htmlFor="delayed" className="pl-1">
               Delayed
