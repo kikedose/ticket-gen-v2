@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import CustomerData from './-customer-data';
 import PaymentOptions from './-payment-options';
+import ProductSelector from './-product-selector';
 
 export default function TicketForm() {
   return (
@@ -16,7 +17,9 @@ export default function TicketForm() {
           <CustomerData />
         </TabsContent>
 
-        <TabsContent value="order">Orden</TabsContent>
+        <TabsContent value="order">
+          <ProductSelector />
+        </TabsContent>
 
         <TabsContent value="payment">
           <PaymentOptions />
