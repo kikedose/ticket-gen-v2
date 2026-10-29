@@ -97,7 +97,7 @@ export const productList: Product[] = [
   },
   {
     slug: 'falafel_plato',
-    name: 'Falafel al plato x8',
+    name: 'Falafel al plato x6',
     price: 12200,
     type: 'plato',
   },

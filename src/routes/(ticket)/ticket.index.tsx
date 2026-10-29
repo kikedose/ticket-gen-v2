@@ -9,16 +9,12 @@ export const Route = createFileRoute('/(ticket)/ticket/')({
 function RouteComponent() {
   return (
     <main className="flex h-svh w-full flex-row">
-      <section className="h-full w-2/3 py-4 pl-4">
-        <div className="bg-popover border-border flex h-full flex-col rounded-lg border border-solid">
-          <TicketForm />
-        </div>
+      <section className="w-2/3 py-4 pl-4">
+        <TicketForm />
       </section>
 
       <section className="h-full w-1/3 p-4">
-        <div className="h-full w-full border-l">
-          <TicketPreview />
-        </div>
+        <TicketPreview />
       </section>
     </main>
   );

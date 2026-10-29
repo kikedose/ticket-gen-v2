@@ -5,26 +5,29 @@ import ProductSelector from './-product-selector';
 
 export default function TicketForm() {
   return (
-    <>
-      <Tabs defaultValue="customer" className="w-full p-8">
-        <TabsList className="w-full bg-none" variant="default">
-          <TabsTrigger value="customer">Cliente</TabsTrigger>
-          <TabsTrigger value="order">Orden</TabsTrigger>
-          <TabsTrigger value="payment">Pago</TabsTrigger>
+    <div className="bg-popover border-border flex h-full flex-col overflow-hidden rounded-lg border border-solid">
+      <Tabs defaultValue="customer" className="flex h-full flex-col">
+        <TabsList className="w-full shrink-0 bg-none" variant="default">
+          <TabsTrigger value="customer">Customer</TabsTrigger>
+          <TabsTrigger value="order">Order</TabsTrigger>
+          <TabsTrigger value="payment">Payment</TabsTrigger>
         </TabsList>
 
+        {/* Customer Tab Content */}
         <TabsContent value="customer">
           <CustomerData />
         </TabsContent>
 
-        <TabsContent value="order">
+        {/* Order Tab Content */}
+        <TabsContent value="order" className="min-h-0 flex-1 overflow-y-auto">
           <ProductSelector />
         </TabsContent>
 
+        {/* Payment Tab Content */}
         <TabsContent value="payment">
           <PaymentOptions />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 }
