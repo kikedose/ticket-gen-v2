@@ -14,17 +14,26 @@ export default function TicketForm() {
         </TabsList>
 
         {/* Customer Tab Content */}
-        <TabsContent value="customer">
+        <TabsContent
+          value="customer"
+          className="min-h-0 flex-1 overflow-y-auto p-8"
+        >
           <CustomerData />
         </TabsContent>
 
         {/* Order Tab Content */}
-        <TabsContent value="order" className="min-h-0 flex-1 overflow-y-auto">
+        <TabsContent
+          value="order"
+          className="min-h-0 flex-1 overflow-y-auto p-8"
+        >
           <ProductSelector />
         </TabsContent>
 
         {/* Payment Tab Content */}
-        <TabsContent value="payment">
+        <TabsContent
+          value="payment"
+          className="min-h-0 flex-1 overflow-y-auto p-8"
+        >
           <PaymentOptions />
         </TabsContent>
       </Tabs>

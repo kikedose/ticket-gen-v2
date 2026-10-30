@@ -1,3 +1,4 @@
+import { Button } from '~/components/ui/button';
 import { productList, type Product } from '~/lib/product-list';
 
 export const productsByType = productList.reduce(
@@ -14,20 +15,18 @@ export const productsByType = productList.reduce(
 export default function ProductSelector() {
   return (
     <div className="flex flex-col">
-      {Object.keys(productsByType).map((type) => (
-        <>
+      {Object.entries(productsByType).map(([type, items]) => (
+        <div key={type} className="mb-6 flex flex-col gap-4">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0">
             {type}
           </h2>
 
           <div className="flex flex-wrap gap-4">
-            {productsByType[type].map((item: Product) => (
-              <span className="border-border grid h-16 w-32 items-center rounded-xl border border-solid text-center">
-                {item.name}
-              </span>
+            {items?.map((item: Product) => (
+              <Button variant="outline">{item.name}</Button>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
