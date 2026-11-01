@@ -2,15 +2,7 @@ export interface Product {
   slug: string;
   name: string;
   price: number;
-  type:
-    | 'salsa'
-    | 'entrada'
-    | 'wrap'
-    | 'plato'
-    | 'adicional'
-    | 'bebida'
-    | 'picada'
-    | 'combo';
+  type: 'wrap' | 'combo' | 'picada' | 'plato' | 'bebida' | 'adicional';
 }
 
 export const productList: Product[] = [
@@ -19,50 +11,50 @@ export const productList: Product[] = [
     slug: 'baba_ghanoush',
     name: 'Baba ghanoush',
     price: 5900,
-    type: 'salsa',
+    type: 'plato',
   },
   {
     slug: 'hummus',
     name: 'Hummus',
     price: 5900,
-    type: 'salsa',
+    type: 'plato',
   },
   {
     slug: 'labneh',
     name: 'Labneh',
     price: 5900,
-    type: 'salsa',
+    type: 'plato',
   },
   {
     slug: 'tabbouleh',
     name: 'Tabbouleh',
     price: 5900,
-    type: 'salsa',
+    type: 'plato',
   },
   {
     slug: 'toumiya',
     name: 'Toumiya',
     price: 5900,
-    type: 'salsa',
+    type: 'plato',
   },
   {
     slug: 'tahini',
     name: 'Tahini',
     price: 5800,
-    type: 'salsa',
+    type: 'plato',
   },
   // ENTRADAS
   {
     slug: 'fritas_porción',
     name: 'Porción papas fritas',
     price: 5200,
-    type: 'entrada',
+    type: 'plato',
   },
   {
     slug: 'empanada',
     name: 'Empanada árabe',
     price: 2800,
-    type: 'entrada',
+    type: 'plato',
   },
   // PLATOS
   {
