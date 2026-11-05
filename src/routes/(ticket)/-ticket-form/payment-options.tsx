@@ -29,7 +29,7 @@ const paymentItems = PAYMENT_METHODS.map((method) => ({
   value: method.value,
   label: (
     // Tells the Select component to render this node insted of the raw 'value'.
-    // Mimics the visual style of the list of options.
+    // Mimics the visual style of the dropdown list.
     // This is hardcoded and might change if BaseUI does.
     <div className="inline-flex gap-2">
       <method.icon size={12} />
@@ -70,6 +70,7 @@ export default function PaymentOptions() {
               <SelectTrigger className="min-w-24">
                 <SelectValue placeholder="Select a payment method" />
               </SelectTrigger>
+
               <SelectContent alignItemWithTrigger>
                 {PAYMENT_METHODS.map((method) => (
                   <SelectItem key={method.value} value={method.value}>
@@ -82,7 +83,32 @@ export default function PaymentOptions() {
           </Field>
         </FieldGroup>
 
-        <FieldGroup>
+        <FieldGroup className="grid grid-cols-4 items-center">
+          <Field>
+            <FieldLabel>Discount</FieldLabel>
+            <Select
+              items={[
+                { label: '$', value: 'money' },
+                { label: '%', value: 'percentage' },
+              ]}
+              // value={}
+              // onValueChange={(value) =>
+              //   setField({
+              //     discount: value as TicketState['discount'],
+              //   })
+              // }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select discount type..." />
+              </SelectTrigger>
+
+              <SelectContent alignItemWithTrigger>
+                <SelectItem value="money" label="$" />
+                <SelectItem value="percentage" label="%" />
+              </SelectContent>
+            </Select>
+          </Field>
+
           <Field>
             <FieldLabel>Discount</FieldLabel>
             <Input
@@ -96,21 +122,21 @@ export default function PaymentOptions() {
               }}
             />
           </Field>
-
-          <Field>
-            <FieldLabel>Delivery Cost</FieldLabel>
-            <Input
-              name="deliveryCost"
-              autoComplete="off"
-              inputMode="numeric"
-              value={deliveryCost || ''}
-              onChange={({ target }) => {
-                if (!/^\d*$/.test(target.value)) return;
-                setField({ deliveryCost: Number(target.value) });
-              }}
-            />
-          </Field>
         </FieldGroup>
+
+        <Field>
+          <FieldLabel>Delivery Cost</FieldLabel>
+          <Input
+            name="deliveryCost"
+            autoComplete="off"
+            inputMode="numeric"
+            value={deliveryCost || ''}
+            onChange={({ target }) => {
+              if (!/^\d*$/.test(target.value)) return;
+              setField({ deliveryCost: Number(target.value) });
+            }}
+          />
+        </Field>
       </FieldSet>
     </>
   );
