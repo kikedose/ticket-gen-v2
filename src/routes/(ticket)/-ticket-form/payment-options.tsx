@@ -22,7 +22,7 @@ import {
 } from '~/components/ui/select';
 import type { TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
-import { PAYMENT_METHODS } from './-payment-methods';
+import { PAYMENT_METHODS } from '../-payment-methods';
 // import { formatMoney as money } from '~/lib/utils';
 
 const paymentItems = PAYMENT_METHODS.map((method) => ({

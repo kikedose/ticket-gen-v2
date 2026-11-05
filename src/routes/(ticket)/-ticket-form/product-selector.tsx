@@ -1,5 +1,5 @@
 import { Button } from '~/components/ui/button';
-import { productList, type Product } from '~/lib/product-list';
+import { productList, type Product } from '../-product-list';
 import { useTicketStore } from '~/stores/ticket-store';
 
 const productsByType = Object.groupBy(productList, (product) => product.type);

@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import CustomerData from './-customer-data';
-import PaymentOptions from './-payment-options';
-import ProductSelector from './-product-selector';
+import CustomerData from './customer-data';
+import PaymentOptions from './payment-options';
+import ProductSelector from './product-selector';
 
 export default function TicketForm() {
   return (
