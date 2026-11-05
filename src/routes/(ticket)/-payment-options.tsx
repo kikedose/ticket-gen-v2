@@ -11,7 +11,7 @@ import {
   FieldSet,
   // FieldTitle,
 } from '~/components/ui/field';
-// import { Input } from '~/components/ui/input';
+import { Input } from '~/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -23,6 +23,7 @@ import {
 import type { TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
 import { PAYMENT_METHODS } from './-payment-methods';
+// import { formatMoney as money } from '~/lib/utils';
 
 const paymentItems = PAYMENT_METHODS.map((method) => ({
   value: method.value,
@@ -38,9 +39,11 @@ const paymentItems = PAYMENT_METHODS.map((method) => ({
 }));
 
 export default function PaymentOptions() {
-  const { paymentMethod } = useTicketStore(
+  const { paymentMethod, discount, deliveryCost } = useTicketStore(
     useShallow((s) => ({
       paymentMethod: s.paymentMethod,
+      discount: s.discount,
+      deliveryCost: s.deliveryCost,
     })),
   );
   const setField = useTicketStore((s) => s.setField);
@@ -76,6 +79,36 @@ export default function PaymentOptions() {
                 ))}
               </SelectContent>
             </Select>
+          </Field>
+        </FieldGroup>
+
+        <FieldGroup>
+          <Field>
+            <FieldLabel>Discount</FieldLabel>
+            <Input
+              name="discount"
+              autoComplete="off"
+              inputMode="numeric"
+              value={discount || ''}
+              onChange={({ target }) => {
+                if (!/^\d*$/.test(target.value)) return;
+                setField({ discount: Number(target.value) });
+              }}
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Delivery Cost</FieldLabel>
+            <Input
+              name="deliveryCost"
+              autoComplete="off"
+              inputMode="numeric"
+              value={deliveryCost || ''}
+              onChange={({ target }) => {
+                if (!/^\d*$/.test(target.value)) return;
+                setField({ deliveryCost: Number(target.value) });
+              }}
+            />
           </Field>
         </FieldGroup>
       </FieldSet>

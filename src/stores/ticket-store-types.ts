@@ -15,12 +15,14 @@ export type TicketState = {
   address: string;
   dispatchTime: string;
   paymentMethod: string;
+  discount: number;
+  deliveryCost: number;
   order: OrderItem[];
 };
 
 export type TicketActions = {
   setField: (fields: Partial<TicketState>) => void;
-  addItem: (item: Omit<OrderItem, 'quantity'>) => void; // Link to Product Tyoe
+  addItem: (item: Omit<OrderItem, 'quantity'>) => void; // Link to Product Type
   removeItem: (slug: string) => void;
   reset: () => void;
 };

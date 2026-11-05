@@ -62,7 +62,7 @@ export default function TicketPreview() {
 
       {/* Total */}
       <ul className="text-right">
-        <li>Subtotal: $ 231,000</li>
+        <li>Subtotal:{` ${money(53565)}`}</li>
         <li>Descuento: - $ 15,000</li>
         <li>Delivery: $ 3,500</li>
         <br />
