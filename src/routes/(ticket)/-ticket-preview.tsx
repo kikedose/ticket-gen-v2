@@ -11,6 +11,7 @@ export default function TicketPreview() {
     address,
     dispatchTime,
     paymentMethod,
+    order,
   } = useTicketStore(
     useShallow((s) => ({
       handout: s.handout,
@@ -20,6 +21,7 @@ export default function TicketPreview() {
       address: s.address,
       dispatchTime: s.dispatchTime,
       paymentMethod: s.paymentMethod,
+      order: s.order,
     })),
   );
 
@@ -47,25 +49,15 @@ export default function TicketPreview() {
 
       {/* Order details */}
       <ol>
-        <li className="grid grid-cols-6 py-2">
-          <div className="col-span-1">10x</div>
-          <div className="col-span-3">Shawarma Pollo Deluxe</div>
-          <div className="col-span-2 text-right">{money(152000)}</div>
-        </li>
-
-        <li className="grid grid-cols-6 py-2">
-          <div className="col-span-1">2x</div>
-          <div className="col-span-3">Picada para dos</div>
-          <div className="col-span-2 text-right">$ 79,000</div>
-          <div className="col-span-3 col-start-2 text-sm">
-            <ul>
-              <li>- Hummus</li>
-              <li>- Baba ghanoush</li>
-              <li>- Tabbouleh</li>
-              <li>- Labneh</li>
-            </ul>
-          </div>
-        </li>
+        {order?.map((item) => (
+          <li className="grid grid-cols-6 py-2">
+            <div className="col-span-1">{item.quantity}</div>
+            <div className="col-span-3">{item.name}</div>
+            <div className="col-span-2 text-right">
+              {money(item.price * item.quantity)}
+            </div>
+          </li>
+        ))}
       </ol>
 
       {/* Total */}

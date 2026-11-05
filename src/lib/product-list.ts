@@ -2,7 +2,7 @@ export interface Product {
   slug: string;
   name: string;
   price: number;
-  type: 'wrap' | 'combo' | 'picada' | 'plato' | 'bebida' | 'adicional';
+  type: 'wrap' | 'combo' | 'picada' | 'porciones' | 'bebida' | 'adicional';
 }
 
 export const productList: Product[] = [
@@ -11,87 +11,87 @@ export const productList: Product[] = [
     slug: 'baba_ghanoush',
     name: 'Baba ghanoush',
     price: 5900,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'hummus',
     name: 'Hummus',
     price: 5900,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'labneh',
     name: 'Labneh',
     price: 5900,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'tabbouleh',
     name: 'Tabbouleh',
     price: 5900,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'toumiya',
     name: 'Toumiya',
     price: 5900,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'tahini',
     name: 'Tahini',
     price: 5800,
-    type: 'plato',
+    type: 'porciones',
   },
   // ENTRADAS
   {
     slug: 'fritas_porción',
-    name: 'Porción papas fritas',
+    name: 'Papas fritas',
     price: 5200,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'empanada',
     name: 'Empanada árabe',
     price: 2800,
-    type: 'plato',
+    type: 'porciones',
   },
   // PLATOS
   {
     slug: 'docena_empanadas',
     name: 'Empanada árabe x12',
     price: 29500,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'media_docena_niños_envueltos',
     name: 'Niños envueltos x6',
     price: 7750,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'docena_niños_envueltos',
     name: 'Niños envueltos x12',
     price: 15500,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'media_docena_niños_vegetarianos',
     name: 'Niños vegetarianos x6',
     price: 6700,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'docena_niños_vegetarianos',
     name: 'Niños vegetarianos x12',
     price: 13300,
-    type: 'plato',
+    type: 'porciones',
   },
   {
     slug: 'falafel_plato',
-    name: 'Falafel al plato x6',
+    name: 'Falafel al porciones x6',
     price: 12200,
-    type: 'plato',
+    type: 'porciones',
   },
   // ADICIONAL
   {
