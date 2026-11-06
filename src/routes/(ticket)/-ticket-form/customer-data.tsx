@@ -87,7 +87,7 @@ export default function CustomerData() {
         <FieldSeparator />
 
         <FieldGroup className="grid grid-cols-4 items-center">
-          <Field className="col-span-3">
+          <Field className="col-span-2">
             <FieldLabel htmlFor="name">Name</FieldLabel>
             <Input
               id="name"
@@ -107,7 +107,7 @@ export default function CustomerData() {
             />
           </Field>
 
-          <Field className="col-span-4" data-disabled={handout === 'take-away'}>
+          <Field className="col-span-2" data-disabled={handout === 'take-away'}>
             <FieldLabel htmlFor="address">Address</FieldLabel>
             <Input
               id="address"

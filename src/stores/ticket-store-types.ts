@@ -1,11 +1,18 @@
-export type Handout = 'delivery' | 'take-away';
-
 export interface OrderItem {
   slug: string;
   name: string;
   quantity: number;
   price: number;
 }
+
+export type DiscountType = 'fixed' | 'percent';
+
+export interface Discount {
+  type: DiscountType;
+  value: number;
+}
+
+export type Handout = 'delivery' | 'take-away';
 
 export type TicketState = {
   handout: Handout;
@@ -15,7 +22,7 @@ export type TicketState = {
   address: string;
   dispatchTime: string;
   paymentMethod: string;
-  discount: number;
+  discount: Discount;
   deliveryCost: number;
   order: OrderItem[];
 };

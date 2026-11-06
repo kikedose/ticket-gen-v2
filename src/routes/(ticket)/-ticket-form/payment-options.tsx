@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/components/ui/select';
-import type { TicketState } from '~/stores/ticket-store-types';
+import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
 import { PAYMENT_METHODS } from '../-payment-methods';
 // import { formatMoney as money } from '~/lib/utils';
@@ -38,6 +38,11 @@ const paymentItems = PAYMENT_METHODS.map((method) => ({
   ),
 }));
 
+const DISCOUNT_TYPES: { label: string; value: DiscountType }[] = [
+  { label: '$', value: 'fixed' },
+  { label: '%', value: 'percent' },
+];
+
 export default function PaymentOptions() {
   const { paymentMethod, discount, deliveryCost } = useTicketStore(
     useShallow((s) => ({
@@ -46,7 +51,27 @@ export default function PaymentOptions() {
       deliveryCost: s.deliveryCost,
     })),
   );
+
   const setField = useTicketStore((s) => s.setField);
+
+  const handleDiscountTypeChange = (type: DiscountType | null) => {
+    if (!type) return;
+
+    setField({ discount: { type, value: 0 } });
+  };
+
+  const handleDiscountValueChange = (raw: string) => {
+    if (!/^\d*$/.test(raw)) return;
+
+    const n = Number(raw);
+
+    setField({
+      discount: {
+        ...discount,
+        value: discount.type === 'percent' ? Math.min(n, 100) : n,
+      },
+    });
+  };
 
   return (
     <>
@@ -84,59 +109,52 @@ export default function PaymentOptions() {
         </FieldGroup>
 
         <FieldGroup className="grid grid-cols-4 items-center">
-          <Field>
-            <FieldLabel>Discount</FieldLabel>
+          <Field className="col-span-1">
+            <FieldLabel>Discount type</FieldLabel>
             <Select
-              items={[
-                { label: '$', value: 'money' },
-                { label: '%', value: 'percentage' },
-              ]}
-              // value={}
-              // onValueChange={(value) =>
-              //   setField({
-              //     discount: value as TicketState['discount'],
-              //   })
-              // }
+              items={DISCOUNT_TYPES}
+              value={discount.type}
+              onValueChange={handleDiscountTypeChange}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select discount type..." />
+                <SelectValue />
               </SelectTrigger>
 
               <SelectContent alignItemWithTrigger>
-                <SelectItem value="money" label="$" />
-                <SelectItem value="percentage" label="%" />
+                {DISCOUNT_TYPES.map(({ label, value }) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </Field>
 
-          <Field>
-            <FieldLabel>Discount</FieldLabel>
+          <Field className="col-span-2">
+            <FieldLabel>Amount</FieldLabel>
             <Input
               name="discount"
               autoComplete="off"
               inputMode="numeric"
-              value={discount || ''}
+              value={discount.value || ''}
+              onChange={({ target }) => handleDiscountValueChange(target.value)}
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Delivery Cost</FieldLabel>
+            <Input
+              name="deliveryCost"
+              autoComplete="off"
+              inputMode="numeric"
+              value={deliveryCost || ''}
               onChange={({ target }) => {
                 if (!/^\d*$/.test(target.value)) return;
-                setField({ discount: Number(target.value) });
+                setField({ deliveryCost: Number(target.value) });
               }}
             />
           </Field>
         </FieldGroup>
-
-        <Field>
-          <FieldLabel>Delivery Cost</FieldLabel>
-          <Input
-            name="deliveryCost"
-            autoComplete="off"
-            inputMode="numeric"
-            value={deliveryCost || ''}
-            onChange={({ target }) => {
-              if (!/^\d*$/.test(target.value)) return;
-              setField({ deliveryCost: Number(target.value) });
-            }}
-          />
-        </Field>
       </FieldSet>
     </>
   );
