@@ -79,8 +79,8 @@ export default function PaymentOptions() {
         <FieldLegend>Payment Options</FieldLegend>
         <FieldSeparator />
 
-        <FieldGroup>
-          <Field>
+        <FieldGroup className="grid grid-cols-4">
+          <Field className="col-span-4">
             <FieldLabel>Payment Method</FieldLabel>
 
             <Select

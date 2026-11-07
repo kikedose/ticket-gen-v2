@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/react/shallow';
 import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
+import { getSubtotal } from '~/stores/ticket-store-helpers';
 
 export default function TicketPreview() {
   const {
@@ -22,6 +23,7 @@ export default function TicketPreview() {
       dispatchTime: s.dispatchTime,
       paymentMethod: s.paymentMethod,
       order: s.order,
+      discount: s.discount,
     })),
   );
 
@@ -62,7 +64,7 @@ export default function TicketPreview() {
 
       {/* Total */}
       <ul className="text-right">
-        <li>Subtotal:{` ${money(53565)}`}</li>
+        <li>Subtotal: {money(getSubtotal(order))}</li>
         <li>Descuento: - $ 15,000</li>
         <li>Delivery: $ 3,500</li>
         <br />
