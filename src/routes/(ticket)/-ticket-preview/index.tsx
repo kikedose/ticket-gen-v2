@@ -1,7 +1,11 @@
 import { useShallow } from 'zustand/react/shallow';
 import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
-import { getSubtotal } from '~/stores/ticket-store-helpers';
+import {
+  getDiscountAmount,
+  getSubtotal,
+  getTotal,
+} from '~/stores/ticket-store-helpers';
 
 export default function TicketPreview() {
   const {
@@ -13,6 +17,9 @@ export default function TicketPreview() {
     dispatchTime,
     paymentMethod,
     order,
+    discount,
+    deliveryCost,
+    state,
   } = useTicketStore(
     useShallow((s) => ({
       handout: s.handout,
@@ -24,8 +31,12 @@ export default function TicketPreview() {
       paymentMethod: s.paymentMethod,
       order: s.order,
       discount: s.discount,
+      deliveryCost: s.deliveryCost,
+      state: s,
     })),
   );
+
+  const subtotal = getSubtotal(order);
 
   return (
     <div className="flex w-[72mm] flex-col gap-4 font-mono">
@@ -64,12 +75,12 @@ export default function TicketPreview() {
 
       {/* Total */}
       <ul className="text-right">
-        <li>Subtotal: {money(getSubtotal(order))}</li>
-        <li>Descuento: - $ 15,000</li>
-        <li>Delivery: $ 3,500</li>
+        <li>Subtotal: {money(subtotal)}</li>
+        <li>Descuento: - {money(getDiscountAmount(subtotal, discount))}</li>
+        <li>Delivery: {money(deliveryCost)}</li>
         <br />
         <li>
-          Total: <span className="font-bold">$ 219,500</span>
+          Total: <span className="font-bold">{money(getTotal(state))}</span>
         </li>
         <br />
         <li className="capitalize">{paymentMethod}</li>
