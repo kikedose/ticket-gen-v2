@@ -80,7 +80,7 @@ export default function PaymentOptions() {
         <FieldSeparator />
 
         <FieldGroup className="grid grid-cols-4">
-          <Field className="col-span-4">
+          <Field className="col-span-3">
             <FieldLabel>Payment Method</FieldLabel>
 
             <Select
@@ -110,7 +110,7 @@ export default function PaymentOptions() {
 
         <FieldGroup className="grid grid-cols-4 items-center">
           <Field className="col-span-1">
-            <FieldLabel>Discount type</FieldLabel>
+            <FieldLabel>Discount </FieldLabel>
             <Select
               items={DISCOUNT_TYPES}
               value={discount.type}
@@ -141,7 +141,7 @@ export default function PaymentOptions() {
             />
           </Field>
 
-          <Field>
+          <Field className='col-span-2'>
             <FieldLabel>Delivery Cost</FieldLabel>
             <Input
               name="deliveryCost"
