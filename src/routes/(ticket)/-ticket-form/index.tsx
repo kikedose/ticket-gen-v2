@@ -5,20 +5,29 @@ import ProductSelector from './product-selector';
 
 export default function TicketForm() {
   return (
-    <div className="bg-popover border-border flex h-full flex-col overflow-hidden rounded-lg border border-solid">
+    <div className="bg-popover border-border flex h-full flex-col overflow-hidden rounded-lg">
       <Tabs defaultValue="customer" className="flex h-full flex-col">
         <TabsList className="w-full shrink-0 bg-none" variant="default">
-          <TabsTrigger value="customer">Customer</TabsTrigger>
+          <TabsTrigger value="customer">
+            {'Customer Info & Payment'}
+          </TabsTrigger>
           <TabsTrigger value="order">Order</TabsTrigger>
-          <TabsTrigger value="payment">Payment</TabsTrigger>
         </TabsList>
 
-        {/* Customer Tab Content */}
+        {/* Customer Info & Payment Tab Content */}
         <TabsContent
           value="customer"
           className="min-h-0 flex-1 overflow-y-auto p-8"
         >
-          <CustomerData />
+          <div className="flex w-full flex-nowrap gap-8">
+            <div className="flex-1">
+              <CustomerData />
+            </div>
+
+            <div className="flex-1">
+              <PaymentOptions />
+            </div>
+          </div>
         </TabsContent>
 
         {/* Order Tab Content */}
@@ -27,14 +36,6 @@ export default function TicketForm() {
           className="min-h-0 flex-1 overflow-y-auto p-8"
         >
           <ProductSelector />
-        </TabsContent>
-
-        {/* Payment Tab Content */}
-        <TabsContent
-          value="payment"
-          className="min-h-0 flex-1 overflow-y-auto p-8"
-        >
-          <PaymentOptions />
         </TabsContent>
       </Tabs>
     </div>

@@ -98,7 +98,7 @@ export default function PaymentOptions() {
         <FieldSeparator />
 
         <FieldGroup className="grid grid-cols-4">
-          <Field className="col-span-3">
+          <Field className="col-span-4">
             <FieldLabel>Payment Method</FieldLabel>
 
             <Select
@@ -124,10 +124,8 @@ export default function PaymentOptions() {
               </SelectContent>
             </Select>
           </Field>
-        </FieldGroup>
 
-        <FieldGroup className="grid grid-cols-4 items-center">
-          <Field className="col-span-1">
+          <Field className="col-span-2">
             <FieldLabel>Discount </FieldLabel>
             <Select
               items={DISCOUNT_TYPES}

@@ -86,7 +86,7 @@ export default function CustomerData() {
 
         <FieldSeparator />
 
-        <FieldGroup className="grid grid-cols-4 items-center">
+        <FieldGroup className="grid grid-cols-2">
           <Field className="col-span-2">
             <FieldLabel htmlFor="name">Name</FieldLabel>
             <Input
@@ -94,16 +94,6 @@ export default function CustomerData() {
               autoComplete="off"
               value={name}
               onChange={({ target }) => setField({ name: target.value })}
-            />
-          </Field>
-
-          <Field className="col-span-1">
-            <FieldLabel htmlFor="phone">Phone</FieldLabel>
-            <Input
-              id="phone"
-              autoComplete="off"
-              value={phone}
-              onChange={({ target }) => setField({ phone: target.value })}
             />
           </Field>
 
@@ -115,6 +105,16 @@ export default function CustomerData() {
               disabled={handout === 'take-away'}
               value={address}
               onChange={({ target }) => setField({ address: target.value })}
+            />
+          </Field>
+
+          <Field className="col-span-1">
+            <FieldLabel htmlFor="phone">Phone</FieldLabel>
+            <Input
+              id="phone"
+              autoComplete="off"
+              value={phone}
+              onChange={({ target }) => setField({ phone: target.value })}
             />
           </Field>
 
