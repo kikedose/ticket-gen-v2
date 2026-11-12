@@ -1,5 +1,6 @@
 import { useShallow } from 'zustand/react/shallow';
-// import { Trash } from 'lucide-react';
+import { Trash } from 'lucide-react';
+import { Button } from '~/components/ui/button';
 import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
 import {
@@ -45,7 +46,7 @@ export default function TicketPreview() {
       <div className="inline-flex">
         <div className="bg-background text-foreground inline-flex gap-2 p-1 font-bold uppercase">
           <span>{handout}</span>
-          <span>{isDelayed && dispatchTime}</span>
+          {isDelayed && <span>{dispatchTime}</span>}
         </div>
         <div className="ml-auto text-right">#T-4567</div>
       </div>
@@ -60,14 +61,17 @@ export default function TicketPreview() {
       {/* Order details */}
       <ol className="border-y-background flex flex-1 flex-col overflow-y-scroll border-b-2 border-solid py-4">
         {order?.map((item) => (
-          <li
-            className="mb-1 grid min-h-[2lh] grid-cols-9 first:mt-auto"
-            key={item.slug}
-          >
-            <span className="col-span-1 text-center">{item.quantity}</span>
-            <span className="col-span-5 decoration-red-500 hover:cursor-pointer hover:text-gray-500 hover:line-through hover:before:text-red-500 hover:before:content-['(X)_']">
-              {item.name}
+          <li className="mb-1 grid grid-cols-9 first:mt-auto" key={item.slug}>
+            <span className="col-span-1 grid place-items-center opacity-0">
+              <Button size="xs" variant="destructive">
+                <Trash />
+              </Button>
             </span>
+
+            <span className="col-span-1">{item.quantity}</span>
+
+            <span className="col-span-4">{item.name}</span>
+
             <span className="col-span-3 text-right">
               {money(item.price * item.quantity)}
             </span>
