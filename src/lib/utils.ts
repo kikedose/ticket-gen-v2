@@ -14,6 +14,19 @@ export const getTime = (time = Date.now()) =>
     hourCycle: 'h23',
   });
 
+export const formatTime = (timestamp = Date.now()) => {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+    .format(new Date(timestamp))
+    .toUpperCase()
+    .replace(',', '');
+};
+
 export const sanitizePhone = (input: string): string => {
   let digits = input.replace(/\D/g, '');
 

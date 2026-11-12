@@ -1,4 +1,5 @@
 import { useShallow } from 'zustand/react/shallow';
+// import { Trash } from 'lucide-react';
 import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
 import {
@@ -39,19 +40,15 @@ export default function TicketPreview() {
   const subtotal = getSubtotal(order);
 
   return (
-    <div className="flex w-[72mm] flex-col gap-4 font-mono">
-      {/* Ticket No */}
-      <div className="text-right">#T-4567</div>
-
+    <div className="bg-foreground/90 text-background flex h-full flex-col gap-2 rounded-lg p-8 font-mono text-sm">
       {/* Handover details */}
-      <ul>
-        <li className="uppercase">{handout}</li>
-        {isDelayed && (
-          <li>
-            Entrega <span className="font-bold">{dispatchTime}</span>
-          </li>
-        )}
-      </ul>
+      <div className="inline-flex">
+        <div className="bg-background text-foreground inline-flex gap-2 p-1 font-bold uppercase">
+          <span>{handout}</span>
+          <span>{isDelayed && dispatchTime}</span>
+        </div>
+        <div className="ml-auto text-right">#T-4567</div>
+      </div>
 
       {/* Customer details */}
       <ul>
@@ -61,14 +58,19 @@ export default function TicketPreview() {
       </ul>
 
       {/* Order details */}
-      <ol>
+      <ol className="border-y-background flex flex-1 flex-col overflow-y-scroll border-b-2 border-solid py-4">
         {order?.map((item) => (
-          <li className="grid grid-cols-6 py-2">
-            <div className="col-span-1">{item.quantity}</div>
-            <div className="col-span-3">{item.name}</div>
-            <div className="col-span-2 text-right">
+          <li
+            className="mb-1 grid min-h-[2lh] grid-cols-9 first:mt-auto"
+            key={item.slug}
+          >
+            <span className="col-span-1 text-center">{item.quantity}</span>
+            <span className="col-span-5 decoration-red-500 hover:cursor-pointer hover:text-gray-500 hover:line-through hover:before:text-red-500 hover:before:content-['(X)_']">
+              {item.name}
+            </span>
+            <span className="col-span-3 text-right">
               {money(item.price * item.quantity)}
-            </div>
+            </span>
           </li>
         ))}
       </ol>
@@ -76,17 +78,18 @@ export default function TicketPreview() {
       {/* Total */}
       <ul className="text-right">
         <li>Subtotal: {money(subtotal)}</li>
-        <li>Descuento: - {money(getDiscountAmount(subtotal, discount))}</li>
-        <li>Delivery: {money(deliveryCost)}</li>
-        <br />
+
+        {!!discount.value && (
+          <li>Discount: - {money(getDiscountAmount(subtotal, discount))}</li>
+        )}
+
+        {handout === 'delivery' && <li>Delivery: + {money(deliveryCost)}</li>}
+
         <li>
           Total: <span className="font-bold">{money(getTotal(state))}</span>
         </li>
-        <br />
-        <li className="capitalize">{paymentMethod}</li>
+        <li className="uppercase">{`<${paymentMethod}>`}</li>
       </ul>
-
-      <div>05/ABR/2022 19:30</div>
     </div>
   );
 }
