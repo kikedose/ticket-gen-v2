@@ -6,6 +6,7 @@ export const Route = createFileRoute('/(ticket)/ticket/')({
   component: RouteComponent,
 });
 
+// oxlint-disable-next-line only-export-components
 function RouteComponent() {
   return (
     <main className="flex h-svh w-full flex-row">
