@@ -65,7 +65,7 @@ export default function ProductSelector() {
       )}
 
       {productHeaders.map((type) => (
-        <div key={type} className="flex flex-col gap-4">
+        <div key={type} className="flex flex-col gap-4 pt-8">
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight capitalize first:mt-0">
             {type}
           </h2>

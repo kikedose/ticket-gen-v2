@@ -33,7 +33,7 @@ const paymentItems = PAYMENT_METHODS.map((method) => ({
     // Tells the Select component to render this node insted of the raw 'value'.
     // Mimics the visual style of the dropdown list.
     // This is hardcoded and might change if BaseUI does.
-    <div className="inline-flex gap-2">
+    <div className="inline-flex items-center gap-2">
       <method.icon size={12} />
       {method.tag}
     </div>
@@ -43,19 +43,19 @@ const paymentItems = PAYMENT_METHODS.map((method) => ({
 const DISCOUNT_TYPES: { label: ReactNode; value: DiscountType }[] = [
   {
     label: (
-      <div className="inline-flex gap-2">
+      <>
         <CircleDollarSign size={12} />
         Fixed
-      </div>
+      </>
     ),
     value: 'fixed',
   },
   {
     label: (
-      <div className="inline-flex gap-2">
+      <>
         <CirclePercent size={12} />
         Percent
-      </div>
+      </>
     ),
     value: 'percent',
   },
