@@ -62,7 +62,7 @@ export default function TicketPreview() {
       <ol className="border-y-background flex flex-1 flex-col overflow-y-scroll border-b-2 border-solid py-4">
         {order?.map((item) => (
           <li className="mb-1 grid grid-cols-9 first:mt-auto" key={item.slug}>
-            <span className="col-span-1 grid place-items-center opacity-0">
+            <span className="col-span-1 grid place-items-center">
               <Button size="xs" variant="destructive">
                 <Trash />
               </Button>
