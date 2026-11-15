@@ -22,6 +22,7 @@ export type TicketState = {
   address: string;
   dispatchTime: string;
   paymentMethod: string;
+  isPaid: boolean;
   discount: Discount;
   deliveryCost: number;
   order: OrderItem[];

@@ -25,6 +25,7 @@ import {
 import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
 import { PAYMENT_METHODS } from '../-payment-methods';
+import { Checkbox } from '@base-ui/react';
 // import { formatMoney as money } from '~/lib/utils';
 
 const paymentItems = PAYMENT_METHODS.map((method) => ({
@@ -62,11 +63,12 @@ const DISCOUNT_TYPES: { label: ReactNode; value: DiscountType }[] = [
 ];
 
 export default function PaymentOptions() {
-  const { paymentMethod, discount, deliveryCost } = useTicketStore(
+  const { paymentMethod, discount, deliveryCost, isPaid } = useTicketStore(
     useShallow((s) => ({
       paymentMethod: s.paymentMethod,
       discount: s.discount,
       deliveryCost: s.deliveryCost,
+      isPaid: s.isPaid,
     })),
   );
 
@@ -124,6 +126,24 @@ export default function PaymentOptions() {
               </SelectContent>
             </Select>
           </Field>
+
+          <Field className="col-span-1" orientation="horizontal">
+            <Checkbox
+              id="delayed"
+              name="delayed"
+              checked={isPaid}
+              onCheckedChange={(checked) =>
+                setField({
+                  isPaid: !!checked,
+                })
+              }
+            />
+            <FieldLabel htmlFor="delayed" className="pl-1">
+              Delayed
+            </FieldLabel>
+          </Field>
+
+          <FieldSeparator />
 
           <Field className="col-span-2">
             <FieldLabel>Discount </FieldLabel>

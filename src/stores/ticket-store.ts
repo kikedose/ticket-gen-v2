@@ -9,6 +9,7 @@ const initialState: TicketState = {
   address: '',
   dispatchTime: '',
   paymentMethod: 'transfer',
+  isPaid: false,
   discount: { type: 'fixed', value: 0 },
   deliveryCost: 0,
   order: [],
