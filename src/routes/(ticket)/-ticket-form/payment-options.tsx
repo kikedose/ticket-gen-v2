@@ -25,7 +25,7 @@ import {
 import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
 import { PAYMENT_METHODS } from '../-payment-methods';
-import { Checkbox } from '@base-ui/react';
+import { Checkbox } from '~/components/ui/checkbox';
 // import { formatMoney as money } from '~/lib/utils';
 
 const paymentItems = PAYMENT_METHODS.map((method) => ({
@@ -94,104 +94,104 @@ export default function PaymentOptions() {
   };
 
   return (
-    <>
-      <FieldSet>
-        <FieldLegend>Payment Options</FieldLegend>
-        <FieldSeparator />
+    <FieldSet>
+      <FieldLegend>Payment Options</FieldLegend>
+      <FieldSeparator />
 
-        <FieldGroup className="grid grid-cols-4">
-          <Field className="col-span-4">
-            <FieldLabel>Payment Method</FieldLabel>
+      <FieldGroup>
+        <Field>
+          <FieldLabel>Payment Method</FieldLabel>
 
-            <Select
-              items={paymentItems}
-              value={paymentMethod}
-              onValueChange={(value) =>
-                setField({
-                  paymentMethod: value as TicketState['paymentMethod'],
-                })
-              }
-            >
-              <SelectTrigger className="min-w-24">
-                <SelectValue placeholder="Select a payment method" />
-              </SelectTrigger>
+          <Select
+            items={paymentItems}
+            value={paymentMethod}
+            onValueChange={(value) =>
+              setField({
+                paymentMethod: value as TicketState['paymentMethod'],
+              })
+            }
+          >
+            <SelectTrigger className="min-w-24">
+              <SelectValue placeholder="Select a payment method" />
+            </SelectTrigger>
 
-              <SelectContent alignItemWithTrigger>
-                {PAYMENT_METHODS.map((method) => (
-                  <SelectItem key={method.value} value={method.value}>
-                    <method.icon size={12} />
-                    {method.tag}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </Field>
+            <SelectContent alignItemWithTrigger>
+              {PAYMENT_METHODS.map((method) => (
+                <SelectItem key={method.value} value={method.value}>
+                  <method.icon size={12} />
+                  {method.tag}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
 
-          <Field className="col-span-1" orientation="horizontal">
-            <Checkbox
-              id="delayed"
-              name="delayed"
-              checked={isPaid}
-              onCheckedChange={(checked) =>
-                setField({
-                  isPaid: !!checked,
-                })
-              }
-            />
-            <FieldLabel htmlFor="delayed" className="pl-1">
-              Delayed
-            </FieldLabel>
-          </Field>
+        <Field className="pt-2" orientation="horizontal">
+          <Checkbox
+            id="delayed"
+            name="delayed"
+            checked={isPaid}
+            onCheckedChange={(checked) =>
+              setField({
+                isPaid: !!checked,
+              })
+            }
+          />
+          <FieldLabel htmlFor="delayed" className="pl-1">
+            Paid
+          </FieldLabel>
+        </Field>
+      </FieldGroup>
 
-          <FieldSeparator />
+      <FieldSeparator />
 
-          <Field className="col-span-2">
-            <FieldLabel>Discount </FieldLabel>
-            <Select
-              items={DISCOUNT_TYPES}
-              value={discount.type}
-              onValueChange={handleDiscountTypeChange}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
+      <FieldGroup className="grid grid-cols-4">
+        <Field className="col-span-2">
+          <FieldLabel>Discount </FieldLabel>
+          <Select
+            items={DISCOUNT_TYPES}
+            value={discount.type}
+            onValueChange={handleDiscountTypeChange}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
 
-              <SelectContent alignItemWithTrigger>
-                {DISCOUNT_TYPES.map(({ label, value }) => (
-                  <SelectItem key={value} value={value}>
-                    {label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </Field>
+            <SelectContent alignItemWithTrigger>
+              {DISCOUNT_TYPES.map(({ label, value }) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
 
-          <Field className="col-span-2">
-            <FieldLabel>Amount</FieldLabel>
-            <Input
-              name="discount"
-              autoComplete="off"
-              inputMode="numeric"
-              value={discount.value || ''}
-              onChange={({ target }) => handleDiscountValueChange(target.value)}
-            />
-          </Field>
+        <Field className="col-span-2">
+          <FieldLabel>Amount</FieldLabel>
+          <Input
+            name="discount"
+            autoComplete="off"
+            inputMode="numeric"
+            value={discount.value || ''}
+            onChange={({ target }) => handleDiscountValueChange(target.value)}
+          />
+        </Field>
 
-          <Field className="col-span-2">
-            <FieldLabel>Delivery Cost</FieldLabel>
-            <Input
-              name="deliveryCost"
-              autoComplete="off"
-              inputMode="numeric"
-              value={deliveryCost || ''}
-              onChange={({ target }) => {
-                if (!/^\d*$/.test(target.value)) return;
-                setField({ deliveryCost: Number(target.value) });
-              }}
-            />
-          </Field>
-        </FieldGroup>
-      </FieldSet>
-    </>
+        <Field className="col-span-2">
+          <FieldLabel>Delivery Cost</FieldLabel>
+          <Input
+            name="deliveryCost"
+            autoComplete="off"
+            inputMode="numeric"
+            value={deliveryCost || ''}
+            onChange={({ target }) => {
+              if (!/^\d*$/.test(target.value)) return;
+              setField({ deliveryCost: Number(target.value) });
+            }}
+          />
+        </Field>
+      </FieldGroup>
+    </FieldSet>
   );
 }

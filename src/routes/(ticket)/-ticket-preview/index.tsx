@@ -13,6 +13,7 @@ export default function TicketPreview() {
   const {
     handout,
     isDelayed,
+    isPaid,
     name,
     phone,
     address,
@@ -26,6 +27,7 @@ export default function TicketPreview() {
     useShallow((s) => ({
       handout: s.handout,
       isDelayed: s.isDelayed,
+      isPaid: s.isPaid,
       name: s.name,
       phone: s.phone,
       address: s.address,
@@ -93,6 +95,7 @@ export default function TicketPreview() {
           Total: <span className="font-bold">{money(getTotal(state))}</span>
         </li>
         <li className="uppercase">{`<${paymentMethod}>`}</li>
+        {!isPaid && <li className="font-bold uppercase">(Unpaid)</li>}
       </ul>
     </div>
   );
