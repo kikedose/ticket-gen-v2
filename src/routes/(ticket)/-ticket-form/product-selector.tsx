@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
-import { useDebounce } from '~/hooks';
+import useDebounce from '~/hooks/use-debounce';
 import { useTicketStore } from '~/stores/ticket-store';
 import { productList, type Product } from '../-product-list';
 
