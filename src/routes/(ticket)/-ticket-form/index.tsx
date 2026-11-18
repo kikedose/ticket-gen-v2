@@ -1,4 +1,5 @@
-import { Banknote, UserPen } from 'lucide-react';
+import { Printer, UserPen, UtensilsCrossed } from 'lucide-react';
+import { Button } from '~/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import CustomerData from './customer-data';
 import PaymentOptions from './payment-options';
@@ -6,7 +7,7 @@ import ProductSelector from './product-selector';
 
 export default function TicketForm() {
   return (
-    <div className="bg-popover flex h-full flex-col overflow-hidden rounded-lg">
+    <div className="bg-popover relative flex h-full flex-col overflow-hidden rounded-lg">
       <Tabs defaultValue="customer" className="flex h-full flex-col">
         <TabsList className="w-full shrink-0" variant="line">
           <TabsTrigger value="customer" className="h-auto gap-2 pt-2 pb-1">
@@ -15,7 +16,7 @@ export default function TicketForm() {
           </TabsTrigger>
 
           <TabsTrigger value="order" className="h-auto gap-2 pt-2 pb-1">
-            <Banknote />
+            <UtensilsCrossed />
             Order
           </TabsTrigger>
         </TabsList>
@@ -44,6 +45,11 @@ export default function TicketForm() {
           <ProductSelector />
         </TabsContent>
       </Tabs>
+
+      <Button className="absolute right-6 bottom-6" size="lg">
+        Print
+        <Printer data-icon="inline-end" />
+      </Button>
     </div>
   );
 }
