@@ -1,4 +1,3 @@
-import { useShallow } from 'zustand/react/shallow';
 import { EllipsisVertical, Minus, Plus, Trash } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import {
@@ -19,6 +18,8 @@ import {
 } from '~/stores/ticket-store-helpers';
 
 export default function TicketPreview() {
+  const state = useTicketStore();
+
   const {
     handout,
     isDelayed,
@@ -31,23 +32,9 @@ export default function TicketPreview() {
     order,
     discount,
     deliveryCost,
-    state,
-  } = useTicketStore(
-    useShallow((s) => ({
-      handout: s.handout,
-      isDelayed: s.isDelayed,
-      isPaid: s.isPaid,
-      name: s.name,
-      phone: s.phone,
-      address: s.address,
-      dispatchTime: s.dispatchTime,
-      paymentMethod: s.paymentMethod,
-      order: s.order,
-      discount: s.discount,
-      deliveryCost: s.deliveryCost,
-      state: s,
-    })),
-  );
+    changeQuantity,
+    removeItem,
+  } = state;
 
   const subtotal = getSubtotal(order);
 
@@ -82,7 +69,7 @@ export default function TicketPreview() {
                   <Button
                     size="icon-xs"
                     variant="default"
-                    className="rounded-full opacity-0 group-hover:opacity-100"
+                    className="rounded-full opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 data-popup-open:opacity-100 pointer-coarse:opacity-100"
                   >
                     <EllipsisVertical />
                   </Button>
@@ -91,10 +78,19 @@ export default function TicketPreview() {
               <PopoverContent align="start" className="w-fit">
                 <ButtonGroup>
                   <ButtonGroup>
-                    <Button variant="outline" size="icon-xs">
+                    <Button
+                      variant="outline"
+                      size="icon-xs"
+                      onClick={() => changeQuantity(item.slug, 'plusOne')}
+                    >
                       <Plus />
                     </Button>
-                    <Button variant="outline" size="icon-xs">
+
+                    <Button
+                      variant="outline"
+                      size="icon-xs"
+                      onClick={() => changeQuantity(item.slug, 'minusOne')}
+                    >
                       <Minus />
                     </Button>
                   </ButtonGroup>
@@ -102,7 +98,11 @@ export default function TicketPreview() {
                   <ButtonGroupSeparator />
 
                   <ButtonGroup>
-                    <Button variant="destructive" size="icon-xs">
+                    <Button
+                      variant="destructive"
+                      size="icon-xs"
+                      onClick={() => removeItem(item.slug)}
+                    >
                       <Trash />
                     </Button>
                   </ButtonGroup>

@@ -3,7 +3,6 @@ import { ButtonGroup } from '~/components/ui/button-group';
 import { Checkbox } from '~/components/ui/checkbox';
 import {
   Field,
-  // FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
@@ -21,14 +20,11 @@ import {
 } from '~/components/ui/select';
 import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
-import { PAYMENT_METHODS } from '../-payment-methods';
+import { PAYMENT_METHODS as paymentMethods } from '../-payment-methods';
 
-const paymentItems = PAYMENT_METHODS.map((method) => ({
+const PAYMENT_METHODS = paymentMethods.map((method) => ({
   value: method.value,
   label: (
-    // Tells the Select component to render this node insted of the raw 'value'.
-    // Mimics the visual style of the dropdown list.
-    // This is hardcoded and might change if BaseUI does.
     <div className="inline-flex items-center gap-2">
       <method.icon size={12} />
       {method.tag}
@@ -82,7 +78,7 @@ export default function PaymentOptions() {
           <FieldLabel>Payment Method</FieldLabel>
 
           <Select
-            items={paymentItems}
+            items={PAYMENT_METHODS}
             value={paymentMethod}
             onValueChange={(value) =>
               setField({

@@ -32,6 +32,7 @@ export type TicketActions = {
   setField: (fields: Partial<TicketState>) => void;
   addItem: (item: Omit<OrderItem, 'quantity'>) => void; // Link to Product Type
   removeItem: (slug: string) => void;
+  changeQuantity: (slug: string, type: 'plusOne' | 'minusOne') => void;
   reset: () => void;
 };
 

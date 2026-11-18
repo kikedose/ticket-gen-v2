@@ -2,20 +2,15 @@ import { useShallow } from 'zustand/react/shallow';
 import { Checkbox } from '~/components/ui/checkbox';
 import {
   Field,
-  // FieldContent,
-  // FieldDescription,
-  // FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSeparator,
   FieldSet,
-  // FieldTitle,
 } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
-// import { getTime } from '~/lib/utils';
 import { useTicketStore } from '~/stores/ticket-store';
 import type { TicketState } from '~/stores/ticket-store-types';
 
@@ -31,14 +26,8 @@ export default function CustomerData() {
         dispatchTime: s.dispatchTime,
       })),
     );
-  const setField = useTicketStore((s) => s.setField);
 
-  // const [time, setTime] = useState(() => {
-  //   // rounds up to the next 10 min (600000ms) mark
-  //   // 20:03 -> 20:10
-  //   const t = getTime((Math.floor(Date.now() / 600000) + 1) * 600000);
-  //   return t > '00:00' && t < '19:30' ? '19:30' : t;
-  // });
+  const setField = useTicketStore((s) => s.setField);
 
   return (
     <>
