@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router';
 import { Printer, UserPen, UtensilsCrossed } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
@@ -6,6 +7,8 @@ import PaymentOptions from './payment-options';
 import ProductSelector from './product-selector';
 
 export default function TicketForm() {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-popover relative flex h-full flex-col overflow-hidden rounded-lg">
       <Tabs defaultValue="customer" className="flex h-full flex-col">
@@ -46,7 +49,11 @@ export default function TicketForm() {
         </TabsContent>
       </Tabs>
 
-      <Button className="absolute right-6 bottom-6" size="lg">
+      <Button
+        onClick={() => navigate({ to: '/print' })}
+        className="absolute right-6 bottom-6"
+        size="lg"
+      >
         Print
         <Printer data-icon="inline-end" />
       </Button>

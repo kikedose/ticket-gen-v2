@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrintRouteImport } from './routes/print'
 import { Route as ticketTicketIndexRouteImport } from './routes/(ticket)/ticket.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrintRoute = PrintRouteImport.update({
+  id: '/print',
+  path: '/print',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ticketTicketIndexRoute = ticketTicketIndexRouteImport.update({
@@ -25,27 +31,31 @@ const ticketTicketIndexRoute = ticketTicketIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/print': typeof PrintRoute
   '/ticket/': typeof ticketTicketIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/print': typeof PrintRoute
   '/ticket': typeof ticketTicketIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/print': typeof PrintRoute
   '/(ticket)/ticket/': typeof ticketTicketIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ticket/'
+  fullPaths: '/' | '/print' | '/ticket/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ticket'
-  id: '__root__' | '/' | '/(ticket)/ticket/'
+  to: '/' | '/print' | '/ticket'
+  id: '__root__' | '/' | '/print' | '/(ticket)/ticket/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrintRoute: typeof PrintRoute
   ticketTicketIndexRoute: typeof ticketTicketIndexRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/print': {
+      id: '/print'
+      path: '/print'
+      fullPath: '/print'
+      preLoaderRoute: typeof PrintRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(ticket)/ticket/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrintRoute: PrintRoute,
   ticketTicketIndexRoute: ticketTicketIndexRoute,
 }
 export const routeTree = rootRouteImport
