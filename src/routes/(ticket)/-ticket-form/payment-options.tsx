@@ -1,23 +1,19 @@
-import { CircleDollarSign, CirclePercent } from 'lucide-react';
-import type { ReactNode } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { ButtonGroup } from '~/components/ui/button-group';
+import { Checkbox } from '~/components/ui/checkbox';
 import {
   Field,
-  // FieldContent,
-  // FieldDescription,
-  // FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSeparator,
   FieldSet,
-  // FieldTitle,
 } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import {
   Select,
   SelectContent,
-  // SelectGroup,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -25,50 +21,23 @@ import {
 import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
 import { PAYMENT_METHODS } from '../-payment-methods';
-// import { formatMoney as money } from '~/lib/utils';
 
-const paymentItems = PAYMENT_METHODS.map((method) => ({
-  value: method.value,
-  label: (
-    // Tells the Select component to render this node insted of the raw 'value'.
-    // Mimics the visual style of the dropdown list.
-    // This is hardcoded and might change if BaseUI does.
-    <div className="inline-flex items-center gap-2">
-      <method.icon size={12} />
-      {method.tag}
-    </div>
-  ),
-}));
-
-const DISCOUNT_TYPES: { label: ReactNode; value: DiscountType }[] = [
-  {
-    label: (
-      <>
-        <CircleDollarSign size={12} />
-        Fixed
-      </>
-    ),
-    value: 'fixed',
-  },
-  {
-    label: (
-      <>
-        <CirclePercent size={12} />
-        Percent
-      </>
-    ),
-    value: 'percent',
-  },
+const DISCOUNT_TYPES: { label: string; value: DiscountType }[] = [
+  { label: '$', value: 'fixed' },
+  { label: '%', value: 'percent' },
 ];
 
 export default function PaymentOptions() {
-  const { paymentMethod, discount, deliveryCost } = useTicketStore(
-    useShallow((s) => ({
-      paymentMethod: s.paymentMethod,
-      discount: s.discount,
-      deliveryCost: s.deliveryCost,
-    })),
-  );
+  const { paymentMethod, discount, deliveryCost, isPaid, handout } =
+    useTicketStore(
+      useShallow((s) => ({
+        paymentMethod: s.paymentMethod,
+        discount: s.discount,
+        deliveryCost: s.deliveryCost,
+        isPaid: s.isPaid,
+        handout: s.handout,
+      })),
+    );
 
   const setField = useTicketStore((s) => s.setField);
 
@@ -92,17 +61,19 @@ export default function PaymentOptions() {
   };
 
   return (
-    <>
+    <div className="bg-popover flex-1 rounded-lg p-4">
       <FieldSet>
-        <FieldLegend>Payment Options</FieldLegend>
+        <FieldLegend className="text-muted-foreground">
+          Payment Options
+        </FieldLegend>
         <FieldSeparator />
 
-        <FieldGroup className="grid grid-cols-4">
-          <Field className="col-span-3">
+        <FieldGroup>
+          <Field>
             <FieldLabel>Payment Method</FieldLabel>
 
             <Select
-              items={paymentItems}
+              items={PAYMENT_METHODS}
               value={paymentMethod}
               onValueChange={(value) =>
                 setField({
@@ -115,32 +86,9 @@ export default function PaymentOptions() {
               </SelectTrigger>
 
               <SelectContent alignItemWithTrigger>
-                {PAYMENT_METHODS.map((method) => (
-                  <SelectItem key={method.value} value={method.value}>
-                    <method.icon size={12} />
-                    {method.tag}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </Field>
-        </FieldGroup>
-
-        <FieldGroup className="grid grid-cols-4 items-center">
-          <Field className="col-span-1">
-            <FieldLabel>Discount </FieldLabel>
-            <Select
-              items={DISCOUNT_TYPES}
-              value={discount.type}
-              onValueChange={handleDiscountTypeChange}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-
-              <SelectContent alignItemWithTrigger>
-                {DISCOUNT_TYPES.map(({ label, value }) => (
+                {PAYMENT_METHODS.map(({ value, label, icon: Icon }) => (
                   <SelectItem key={value} value={value}>
+                    <Icon size={12} />
                     {label}
                   </SelectItem>
                 ))}
@@ -148,32 +96,87 @@ export default function PaymentOptions() {
             </Select>
           </Field>
 
-          <Field className="col-span-2">
-            <FieldLabel>Amount</FieldLabel>
-            <Input
-              name="discount"
-              autoComplete="off"
-              inputMode="numeric"
-              value={discount.value || ''}
-              onChange={({ target }) => handleDiscountValueChange(target.value)}
+          <Field className="pt-2" orientation="horizontal">
+            <Checkbox
+              id="paid"
+              name="paid"
+              checked={isPaid}
+              onCheckedChange={(checked) =>
+                setField({
+                  isPaid: !!checked,
+                })
+              }
             />
+            <FieldLabel htmlFor="paid" className="pl-1">
+              Paid
+            </FieldLabel>
+          </Field>
+        </FieldGroup>
+
+        <FieldSeparator />
+
+        <FieldGroup className="grid grid-cols-2">
+          <Field className="col-span-1">
+            <FieldLabel>Discount </FieldLabel>
+            <ButtonGroup>
+              <Select
+                items={DISCOUNT_TYPES}
+                value={discount.type}
+                onValueChange={handleDiscountTypeChange}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+
+                <SelectContent alignItemWithTrigger>
+                  <SelectGroup>
+                    {DISCOUNT_TYPES.map(({ label, value }) => (
+                      <SelectItem key={value} value={value}>
+                        <span className="w-[2ch]">{label}</span>
+                        <span className="text-muted-foreground capitalize">
+                          {value}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+
+              <Input
+                name="discount"
+                autoComplete="off"
+                inputMode="numeric"
+                value={discount.value || ''}
+                onChange={({ target }) =>
+                  handleDiscountValueChange(target.value)
+                }
+              />
+            </ButtonGroup>
           </Field>
 
-          <Field className="col-span-2">
+          <Field className="col-span-1" data-disabled={handout === 'take-away'}>
             <FieldLabel>Delivery Cost</FieldLabel>
-            <Input
-              name="deliveryCost"
-              autoComplete="off"
-              inputMode="numeric"
-              value={deliveryCost || ''}
-              onChange={({ target }) => {
-                if (!/^\d*$/.test(target.value)) return;
-                setField({ deliveryCost: Number(target.value) });
-              }}
-            />
+            <div className="relative flex items-center">
+              {/* Visual Prefix */}
+              <span className="text-muted-foreground pointer-events-none absolute left-3 select-none">
+                $
+              </span>
+              <Input
+                name="deliveryCost"
+                autoComplete="off"
+                inputMode="numeric"
+                className="pl-7"
+                value={deliveryCost || ''}
+                disabled={handout !== 'delivery'}
+                onChange={({ target }) => {
+                  if (!/^\d*$/.test(target.value)) return;
+                  setField({ deliveryCost: Number(target.value) });
+                }}
+              />
+            </div>
           </Field>
         </FieldGroup>
       </FieldSet>
-    </>
+    </div>
   );
 }

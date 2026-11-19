@@ -6,16 +6,17 @@ export const Route = createFileRoute('/(ticket)/ticket/')({
   component: RouteComponent,
 });
 
+// oxlint-disable-next-line only-export-components
 function RouteComponent() {
   return (
-    <main className="flex h-svh w-full flex-row">
-      <section className="w-2/3 py-4 pl-4">
+    <div className="flex h-dvh w-full flex-row gap-4 p-4">
+      <section className="h-full w-2/3">
         <TicketForm />
       </section>
 
-      <section className="h-full w-1/3 p-4">
+      <section className="h-full w-1/3">
         <TicketPreview />
       </section>
-    </main>
+    </div>
   );
 }

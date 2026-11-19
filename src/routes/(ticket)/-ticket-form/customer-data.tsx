@@ -2,20 +2,15 @@ import { useShallow } from 'zustand/react/shallow';
 import { Checkbox } from '~/components/ui/checkbox';
 import {
   Field,
-  // FieldContent,
-  // FieldDescription,
-  // FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSeparator,
   FieldSet,
-  // FieldTitle,
 } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
-// import { getTime } from '~/lib/utils';
 import { useTicketStore } from '~/stores/ticket-store';
 import type { TicketState } from '~/stores/ticket-store-types';
 
@@ -31,19 +26,16 @@ export default function CustomerData() {
         dispatchTime: s.dispatchTime,
       })),
     );
+
   const setField = useTicketStore((s) => s.setField);
 
-  // const [time, setTime] = useState(() => {
-  //   // rounds up to the next 10 min (600000ms) mark
-  //   // 20:03 -> 20:10
-  //   const t = getTime((Math.floor(Date.now() / 600000) + 1) * 600000);
-  //   return t > '00:00' && t < '19:30' ? '19:30' : t;
-  // });
-
   return (
-    <>
+    <div className="bg-popover flex-1 rounded-lg p-4">
       <FieldSet>
-        <FieldLegend>Customer Data</FieldLegend>
+        <FieldLegend className="text-muted-foreground">
+          Customer Data
+        </FieldLegend>
+
         <FieldSeparator />
 
         <FieldGroup>
@@ -86,7 +78,7 @@ export default function CustomerData() {
 
         <FieldSeparator />
 
-        <FieldGroup className="grid grid-cols-4 items-center">
+        <FieldGroup className="grid grid-cols-2">
           <Field className="col-span-2">
             <FieldLabel htmlFor="name">Name</FieldLabel>
             <Input
@@ -94,16 +86,6 @@ export default function CustomerData() {
               autoComplete="off"
               value={name}
               onChange={({ target }) => setField({ name: target.value })}
-            />
-          </Field>
-
-          <Field className="col-span-1">
-            <FieldLabel htmlFor="phone">Phone</FieldLabel>
-            <Input
-              id="phone"
-              autoComplete="off"
-              value={phone}
-              onChange={({ target }) => setField({ phone: target.value })}
             />
           </Field>
 
@@ -115,6 +97,16 @@ export default function CustomerData() {
               disabled={handout === 'take-away'}
               value={address}
               onChange={({ target }) => setField({ address: target.value })}
+            />
+          </Field>
+
+          <Field className="col-span-1">
+            <FieldLabel htmlFor="phone">Phone</FieldLabel>
+            <Input
+              id="phone"
+              autoComplete="off"
+              value={phone}
+              onChange={({ target }) => setField({ phone: target.value })}
             />
           </Field>
 
@@ -136,6 +128,6 @@ export default function CustomerData() {
           </Field>
         </FieldGroup>
       </FieldSet>
-    </>
+    </div>
   );
 }

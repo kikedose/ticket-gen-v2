@@ -22,6 +22,7 @@ export type TicketState = {
   address: string;
   dispatchTime: string;
   paymentMethod: string;
+  isPaid: boolean;
   discount: Discount;
   deliveryCost: number;
   order: OrderItem[];
@@ -31,6 +32,7 @@ export type TicketActions = {
   setField: (fields: Partial<TicketState>) => void;
   addItem: (item: Omit<OrderItem, 'quantity'>) => void; // Link to Product Type
   removeItem: (slug: string) => void;
+  changeQuantity: (slug: string, type: 'plusOne' | 'minusOne') => void;
   reset: () => void;
 };
 

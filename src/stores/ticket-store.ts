@@ -9,6 +9,7 @@ const initialState: TicketState = {
   address: '',
   dispatchTime: '',
   paymentMethod: 'transfer',
+  isPaid: false,
   discount: { type: 'fixed', value: 0 },
   deliveryCost: 0,
   order: [],
@@ -48,6 +49,20 @@ export const useTicketStore = create<TicketStore>((set) => ({
   removeItem: (slug: string) =>
     set((state) => ({
       order: state.order.filter((i) => i.slug !== slug),
+    })),
+
+  changeQuantity: (slug: string, type: 'plusOne' | 'minusOne') =>
+    set((state) => ({
+      order: state.order
+        .map((item) =>
+          item.slug === slug
+            ? {
+                ...item,
+                quantity: item.quantity + (type === 'plusOne' ? 1 : -1),
+              }
+            : item,
+        )
+        .filter((item) => item.quantity > 0),
     })),
 
   reset: () => set(initialState),

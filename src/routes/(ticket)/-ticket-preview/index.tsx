@@ -1,4 +1,14 @@
-import { useShallow } from 'zustand/react/shallow';
+import { EllipsisVertical, Minus, Plus, Trash } from 'lucide-react';
+import { Button } from '~/components/ui/button';
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from '~/components/ui/button-group';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '~/components/ui/popover';
 import { useTicketStore } from '~/stores/ticket-store';
 import { formatMoney as money } from '~/lib/utils';
 import {
@@ -8,9 +18,12 @@ import {
 } from '~/stores/ticket-store-helpers';
 
 export default function TicketPreview() {
+  const state = useTicketStore();
+
   const {
     handout,
     isDelayed,
+    isPaid,
     name,
     phone,
     address,
@@ -19,39 +32,22 @@ export default function TicketPreview() {
     order,
     discount,
     deliveryCost,
-    state,
-  } = useTicketStore(
-    useShallow((s) => ({
-      handout: s.handout,
-      isDelayed: s.isDelayed,
-      name: s.name,
-      phone: s.phone,
-      address: s.address,
-      dispatchTime: s.dispatchTime,
-      paymentMethod: s.paymentMethod,
-      order: s.order,
-      discount: s.discount,
-      deliveryCost: s.deliveryCost,
-      state: s,
-    })),
-  );
+    changeQuantity,
+    removeItem,
+  } = state;
 
   const subtotal = getSubtotal(order);
 
   return (
-    <div className="flex w-[72mm] flex-col gap-4 font-mono">
-      {/* Ticket No */}
-      <div className="text-right">#T-4567</div>
-
+    <div className="light bg-background/90 text-foreground flex h-full flex-col gap-2 rounded-lg p-8 font-mono text-sm">
       {/* Handover details */}
-      <ul>
-        <li className="uppercase">{handout}</li>
-        {isDelayed && (
-          <li>
-            Entrega <span className="font-bold">{dispatchTime}</span>
-          </li>
-        )}
-      </ul>
+      <div className="inline-flex">
+        <div className="bg-foreground text-background inline-flex gap-2 p-1 font-bold uppercase">
+          <span>{handout}</span>
+          {isDelayed && <span>{dispatchTime}</span>}
+        </div>
+        <div className="ml-auto text-right">#T-4567</div>
+      </div>
 
       {/* Customer details */}
       <ul>
@@ -61,14 +57,66 @@ export default function TicketPreview() {
       </ul>
 
       {/* Order details */}
-      <ol>
+      <ol className="border-y-foreground flex flex-1 flex-col overflow-y-auto border-b-2 border-solid py-4">
         {order?.map((item) => (
-          <li className="grid grid-cols-6 py-2">
-            <div className="col-span-1">{item.quantity}</div>
-            <div className="col-span-3">{item.name}</div>
-            <div className="col-span-2 text-right">
+          <li
+            className="group mb-1 grid grid-cols-9 items-center first:mt-auto"
+            key={item.slug}
+          >
+            <Popover>
+              <PopoverTrigger
+                render={
+                  <Button
+                    size="icon-xs"
+                    variant="default"
+                    className="rounded-full opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 data-popup-open:opacity-100 pointer-coarse:opacity-100"
+                  >
+                    <EllipsisVertical />
+                  </Button>
+                }
+              />
+              <PopoverContent align="start" className="w-fit">
+                <ButtonGroup>
+                  <ButtonGroup>
+                    <Button
+                      variant="outline"
+                      size="icon-xs"
+                      onClick={() => changeQuantity(item.slug, 'plusOne')}
+                    >
+                      <Plus />
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      size="icon-xs"
+                      onClick={() => changeQuantity(item.slug, 'minusOne')}
+                    >
+                      <Minus />
+                    </Button>
+                  </ButtonGroup>
+
+                  <ButtonGroupSeparator />
+
+                  <ButtonGroup>
+                    <Button
+                      variant="destructive"
+                      size="icon-xs"
+                      onClick={() => removeItem(item.slug)}
+                    >
+                      <Trash />
+                    </Button>
+                  </ButtonGroup>
+                </ButtonGroup>
+              </PopoverContent>
+            </Popover>
+
+            <span className="col-span-1">{item.quantity}</span>
+
+            <span className="col-span-4">{item.name}</span>
+
+            <span className="col-span-3 text-right">
               {money(item.price * item.quantity)}
-            </div>
+            </span>
           </li>
         ))}
       </ol>
@@ -76,17 +124,19 @@ export default function TicketPreview() {
       {/* Total */}
       <ul className="text-right">
         <li>Subtotal: {money(subtotal)}</li>
-        <li>Descuento: - {money(getDiscountAmount(subtotal, discount))}</li>
-        <li>Delivery: {money(deliveryCost)}</li>
-        <br />
+
+        {!!discount.value && (
+          <li>Discount: - {money(getDiscountAmount(subtotal, discount))}</li>
+        )}
+
+        {handout === 'delivery' && <li>Delivery: + {money(deliveryCost)}</li>}
+
         <li>
           Total: <span className="font-bold">{money(getTotal(state))}</span>
         </li>
-        <br />
-        <li className="capitalize">{paymentMethod}</li>
+        <li className="uppercase">{`<${paymentMethod}>`}</li>
+        {!isPaid && <li className="font-bold uppercase">(Unpaid)</li>}
       </ul>
-
-      <div>05/ABR/2022 19:30</div>
     </div>
   );
 }
