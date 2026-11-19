@@ -2,29 +2,31 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from '~/components/ui/sidebar';
 
-import items from './items';
+import sidebarItems from './nav-items';
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="floating" collapsible="icon" className="p-4" {...props}>
+    <Sidebar variant="floating" collapsible="icon" {...props}>
       <SidebarContent>
-        <SidebarMenu>
-          {items?.map((item) => (
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip={item.name}>
-                {item.icon && <item.icon />}
-                <span>{item.name}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
+        <SidebarGroup>
+          <SidebarMenu>
+            {sidebarItems?.map((item) => (
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip={item.name}>
+                  {item.icon && <item.icon />}
+                  <span>{item.name}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );

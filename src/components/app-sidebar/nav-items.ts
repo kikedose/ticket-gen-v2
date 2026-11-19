@@ -13,22 +13,22 @@ const items = [
     icon: Receipt,
   },
   {
-    name: 'Historial',
+    name: 'History',
     url: '#',
     icon: HistoryIcon,
   },
   {
-    name: 'Catálogo',
+    name: 'Products',
     url: '#',
     icon: PackagePlus,
   },
   {
-    name: 'Estadísticas',
+    name: 'Earnings',
     url: '#',
     icon: ChartArea,
   },
   {
-    name: 'Configuración',
+    name: 'Settings',
     url: '#',
     icon: Settings,
   },
