@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import { Button } from '~/components/ui/button';
+import { FieldLegend, FieldSeparator } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 import useDebounce from '~/hooks/use-debounce';
 import { useTicketStore } from '~/stores/ticket-store';
@@ -49,7 +50,7 @@ export default function ProductSelector() {
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2">
-      <div className="pt-4">
+      <div className="pb-2">
         <Input
           type="search"
           placeholder="Filter..."
@@ -69,12 +70,14 @@ export default function ProductSelector() {
 
         <div className="min-h-0 flex-1 overflow-y-auto">
           {productHeaders.map((type) => (
-            <div key={type} className="flex flex-col gap-4 pb-8">
-              <span className="text-muted-foreground border-b text-lg tracking-tight capitalize first:mt-0">
+            <div key={type} className="flex flex-col pb-8">
+              <FieldLegend className="text-muted-foreground capitalize">
                 {type}
-              </span>
+              </FieldLegend>
 
-              <div className="flex flex-wrap gap-2">
+              <FieldSeparator />
+
+              <div className="flex flex-wrap gap-2 pt-4">
                 {/* fix type errors once API delivers productList */}
                 {productsByType[type as keyof typeof productsByType]?.map(
                   (item: Product) => (

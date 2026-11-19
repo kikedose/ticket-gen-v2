@@ -98,8 +98,8 @@ export default function PaymentOptions() {
 
           <Field className="pt-2" orientation="horizontal">
             <Checkbox
-              id="delayed"
-              name="delayed"
+              id="paid"
+              name="paid"
               checked={isPaid}
               onCheckedChange={(checked) =>
                 setField({
@@ -107,7 +107,7 @@ export default function PaymentOptions() {
                 })
               }
             />
-            <FieldLabel htmlFor="delayed" className="pl-1">
+            <FieldLabel htmlFor="paid" className="pl-1">
               Paid
             </FieldLabel>
           </Field>
