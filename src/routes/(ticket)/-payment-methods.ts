@@ -3,27 +3,27 @@ import { Banknote, Blend, CreditCard, QrCode, Landmark } from 'lucide-react';
 export const PAYMENT_METHODS = [
   {
     value: 'cash',
-    tag: 'Cash',
+    label: 'Cash',
     icon: Banknote,
   },
   {
     value: 'transfer',
-    tag: 'Transfer',
+    label: 'Transfer',
     icon: Landmark,
   },
   {
     value: 'card',
-    tag: 'Credit Card',
+    label: 'Credit Card',
     icon: CreditCard,
   },
   {
     value: 'qr',
-    tag: 'QR',
+    label: 'QR',
     icon: QrCode,
   },
   {
     value: 'mixed',
-    tag: 'Mixed Methods',
+    label: 'Mixed Methods',
     icon: Blend,
   },
 ];

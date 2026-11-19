@@ -20,17 +20,7 @@ import {
 } from '~/components/ui/select';
 import type { DiscountType, TicketState } from '~/stores/ticket-store-types';
 import { useTicketStore } from '~/stores/ticket-store';
-import { PAYMENT_METHODS as paymentMethods } from '../-payment-methods';
-
-const PAYMENT_METHODS = paymentMethods.map((method) => ({
-  value: method.value,
-  label: (
-    <div className="inline-flex items-center gap-2">
-      <method.icon size={12} />
-      {method.tag}
-    </div>
-  ),
-}));
+import { PAYMENT_METHODS } from '../-payment-methods';
 
 const DISCOUNT_TYPES: { label: string; value: DiscountType }[] = [
   { label: '$', value: 'fixed' },
@@ -81,9 +71,7 @@ export default function PaymentOptions() {
             items={PAYMENT_METHODS}
             value={paymentMethod}
             onValueChange={(value) =>
-              setField({
-                paymentMethod: value as TicketState['paymentMethod'],
-              })
+              setField({ paymentMethod: value as TicketState['paymentMethod'] })
             }
           >
             <SelectTrigger className="min-w-24">
@@ -91,10 +79,10 @@ export default function PaymentOptions() {
             </SelectTrigger>
 
             <SelectContent alignItemWithTrigger>
-              {PAYMENT_METHODS.map((method) => (
-                <SelectItem key={method.value} value={method.value}>
-                  <method.icon size={12} />
-                  {method.tag}
+              {PAYMENT_METHODS.map(({ value, label, icon: Icon }) => (
+                <SelectItem key={value} value={value}>
+                  <Icon size={12} />
+                  {label}
                 </SelectItem>
               ))}
             </SelectContent>
