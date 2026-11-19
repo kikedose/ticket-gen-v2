@@ -23,7 +23,7 @@ export default function TicketForm() {
         {/* Customer Info & Payment Tab Content */}
         <TabsContent
           value="customer"
-          className="min-h-0 flex-1 overflow-y-auto p-8"
+          className="min-h-0 flex-1 overflow-y-auto px-8 py-4"
         >
           <div className="flex w-full flex-nowrap gap-16">
             <div className="flex-1">
@@ -39,7 +39,7 @@ export default function TicketForm() {
         {/* Order Tab Content */}
         <TabsContent
           value="order"
-          className="min-h-0 flex-1 overflow-y-auto p-8"
+          className="min-h-0 flex-1 overflow-y-auto px-8 py-4"
         >
           <ProductSelector />
         </TabsContent>

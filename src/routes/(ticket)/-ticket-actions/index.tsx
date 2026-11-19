@@ -10,8 +10,8 @@ export default function TicketActions() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-popover rounded-lg p-4">
-      <ButtonGroup className="float-right">
+    <div className="bg-popover flex rounded-lg p-4">
+      <ButtonGroup>
         <ButtonGroup>
           <Button onClick={() => null} size="lg" variant="ghost">
             Add Notes
@@ -24,20 +24,24 @@ export default function TicketActions() {
             Add Custom Item
             <ChefHat data-icon="inline-end" />
           </Button>
-        </ButtonGroup>
 
-        <ButtonGroup>
-          <Button onClick={() => null} size="lg" variant="secondary">
+          <ButtonGroupSeparator />
+
+          <Button onClick={() => null} size="lg" variant="ghost">
             Clear Ticket
             <TrashOff data-icon="inline-end" />
           </Button>
-
-          <Button onClick={() => navigate({ to: '/print' })} size="lg">
-            Print Ticket
-            <Printer data-icon="inline-end" />
-          </Button>
         </ButtonGroup>
       </ButtonGroup>
+
+      <Button
+        onClick={() => navigate({ to: '/print' })}
+        size="lg"
+        className="ml-auto"
+      >
+        Print Ticket
+        <Printer data-icon="inline-end" />
+      </Button>
     </div>
   );
 }
