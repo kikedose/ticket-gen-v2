@@ -30,9 +30,12 @@ export default function CustomerData() {
   const setField = useTicketStore((s) => s.setField);
 
   return (
-    <>
+    <div className="bg-popover flex-1 rounded-lg p-4">
       <FieldSet>
-        <FieldLegend>Customer Data</FieldLegend>
+        <FieldLegend className="text-muted-foreground">
+          Customer Data
+        </FieldLegend>
+
         <FieldSeparator />
 
         <FieldGroup>
@@ -125,6 +128,6 @@ export default function CustomerData() {
           </Field>
         </FieldGroup>
       </FieldSet>
-    </>
+    </div>
   );
 }

@@ -7,9 +7,9 @@ import {
   SidebarMenuItem,
 } from '~/components/ui/sidebar';
 
-import sidebarItems from './nav-items';
+import sidebarItems from './nav-sidebar-items';
 
-export default function AppSidebar({
+export default function NavSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (

@@ -6,44 +6,34 @@ import ProductSelector from './product-selector';
 
 export default function TicketForm() {
   return (
-    <div className="bg-popover relative flex h-full flex-col overflow-hidden rounded-lg">
-      <Tabs defaultValue="customer" className="flex h-full flex-col">
-        <TabsList className="w-full shrink-0" variant="line">
-          <TabsTrigger value="customer" className="h-auto gap-2 pt-2 pb-1">
-            <UserPen />
-            {'Customer Info & Payment'}
-          </TabsTrigger>
+    <Tabs
+      defaultValue="customer"
+      className="flex h-full min-h-0 w-full flex-1 flex-col gap-4"
+    >
+      <TabsList variant="line">
+        <TabsTrigger value="customer">
+          <UserPen />
+          {'Customer & Payment'}
+        </TabsTrigger>
 
-          <TabsTrigger value="order" className="h-auto gap-2 pt-2 pb-1">
-            <UtensilsCrossed />
-            Order
-          </TabsTrigger>
-        </TabsList>
+        <TabsTrigger value="order">
+          <UtensilsCrossed />
+          Order
+        </TabsTrigger>
+      </TabsList>
 
-        {/* Customer Info & Payment Tab Content */}
-        <TabsContent
-          value="customer"
-          className="min-h-0 flex-1 overflow-y-auto px-8 py-4"
-        >
-          <div className="flex w-full flex-nowrap gap-16">
-            <div className="flex-1">
-              <CustomerData />
-            </div>
+      {/* Customer Info & Payment */}
+      <TabsContent value="customer">
+        <div className="flex w-full items-start gap-4">
+          <CustomerData />
+          <PaymentOptions />
+        </div>
+      </TabsContent>
 
-            <div className="flex-1">
-              <PaymentOptions />
-            </div>
-          </div>
-        </TabsContent>
-
-        {/* Order Tab Content */}
-        <TabsContent
-          value="order"
-          className="min-h-0 flex-1 overflow-y-auto px-8 py-4"
-        >
-          <ProductSelector />
-        </TabsContent>
-      </Tabs>
-    </div>
+      {/* Order */}
+      <TabsContent value="order" className="min-h-0">
+        <ProductSelector />
+      </TabsContent>
+    </Tabs>
   );
 }
