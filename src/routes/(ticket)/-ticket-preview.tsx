@@ -1,5 +1,4 @@
-import { EllipsisVertical, Minus, Plus, Trash } from 'lucide-react';
-import FAB from './print-FAB';
+import { EllipsisVertical, Minus, Plus, Printer, Trash } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import {
   ButtonGroup,
@@ -138,6 +137,13 @@ export default function TicketPreview() {
         <li className="uppercase">{`<${paymentMethod}>`}</li>
         {!isPaid && <li className="font-bold uppercase">(Unpaid)</li>}
       </ul>
+
+      <div className="w-full">
+        <Button variant="default" className="w-full">
+          Print Ticket
+          <Printer />
+        </Button>
+      </div>
     </div>
   );
 }
